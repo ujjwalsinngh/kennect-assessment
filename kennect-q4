@@ -1,0 +1,28 @@
+1.
+
+with cte_1 as (Select teamAName as Team, teamAPoints as TeamPoints
+    from SummaryTable
+    UNION ALL
+    Select teamBName as Team, teamBPoints as TeamPoints
+    from SummaryTable
+),
+cte_2 as (
+    Select Team, SUM(TeamPoints) as points from cte_1
+    Group By Team
+)
+SELECT * from cte_2 Order By points DESC limit 4;
+
+
+2.
+
+with cte_1 as (Select teamAName as Team, teamASixes as six_hit
+    from SummaryTable
+    UNION ALL
+    Select teamBName as Team, teamBSixes as six_hit
+    from SummaryTable
+),
+cte_2 as (
+    Select Team, SUM(six_hit) as sixes from cte_1
+    Group By Team
+)
+SELECT * from cte_2 Order By sixes DESC limit 1;
